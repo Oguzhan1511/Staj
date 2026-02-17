@@ -1,0 +1,15 @@
+using Microsoft.EntityFrameworkCore;
+using kitap.Models;
+
+
+namespace kitap.Data;
+
+public class AppDbContext : DbContext
+{
+    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+    {
+    }
+
+    public DbSet<Book> Books { get; set; }
+    
+}
