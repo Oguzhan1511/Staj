@@ -331,3 +331,15 @@
 /Users/oguzhanozdemir/Desktop/kitap/obj/Debug/net10.0/kitap.pdb
 /Users/oguzhanozdemir/Desktop/kitap/obj/Debug/net10.0/kitap.genruntimeconfig.cache
 /Users/oguzhanozdemir/Desktop/kitap/obj/Debug/net10.0/ref/kitap.dll
+/Users/oguzhanozdemir/Desktop/kitap/obj/Debug/net10.0/kitap.sourcelink.json
+/Users/oguzhanozdemir/Desktop/kitap/bin/Debug/net10.0/Npgsql.dll
+/Users/oguzhanozdemir/Desktop/kitap/bin/Debug/net10.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll
+/Users/oguzhanozdemir/Desktop/kitap/bin/Debug/net10.0/BCrypt.Net-Next.dll
+/Users/oguzhanozdemir/Desktop/kitap/bin/Debug/net10.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
+/Users/oguzhanozdemir/Desktop/kitap/bin/Debug/net10.0/Microsoft.IdentityModel.Abstractions.dll
+/Users/oguzhanozdemir/Desktop/kitap/bin/Debug/net10.0/Microsoft.IdentityModel.JsonWebTokens.dll
+/Users/oguzhanozdemir/Desktop/kitap/bin/Debug/net10.0/Microsoft.IdentityModel.Logging.dll
+/Users/oguzhanozdemir/Desktop/kitap/bin/Debug/net10.0/Microsoft.IdentityModel.Protocols.dll
+/Users/oguzhanozdemir/Desktop/kitap/bin/Debug/net10.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+/Users/oguzhanozdemir/Desktop/kitap/bin/Debug/net10.0/Microsoft.IdentityModel.Tokens.dll
+/Users/oguzhanozdemir/Desktop/kitap/bin/Debug/net10.0/System.IdentityModel.Tokens.Jwt.dll

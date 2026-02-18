@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("kitap")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2fcb42dc180994192e5a1c0663872d3edbc31de4")]
 [assembly: System.Reflection.AssemblyProductAttribute("kitap")]
 [assembly: System.Reflection.AssemblyTitleAttribute("kitap")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
