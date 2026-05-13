@@ -4,6 +4,8 @@ using kitap.Core.UnitOfWork;
 using kitap.Dtos;
 using kitap.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,11 +16,14 @@ namespace kitap.Services
     {
         private readonly IUnitOfWork _uow;
         private readonly IMapper _mapper;
+        private readonly IMemoryCache _cache;
+        private const string BooksCacheKey = "BooksList";
 
-        public BookService(IUnitOfWork uow, IMapper mapper)
+        public BookService(IUnitOfWork uow, IMapper mapper, IMemoryCache cache)
         {
             _uow = uow;
             _mapper = mapper;
+            _cache = cache;
         }
 
         public async Task<IDataResult<IEnumerable<BooksDto>>> GetAllAsync(
@@ -30,6 +35,15 @@ namespace kitap.Services
             int pageSize)
         {
             if (pageSize > 50) pageSize = 50;
+
+            // Eğer filtreleme yoksa cache'den getirmeyi dene
+            if (string.IsNullOrEmpty(searchTerm) && !categoryId.HasValue && !authorId.HasValue)
+            {
+                if (_cache.TryGetValue(BooksCacheKey, out IEnumerable<BooksDto>? cachedBooks))
+                {
+                    return new SuccessDataResult<IEnumerable<BooksDto>>(cachedBooks!.Skip((pageNumber - 1) * pageSize).Take(pageSize), "Veriler önbellekten getirildi.");
+                }
+            }
 
             var query = _uow.Repository<Book>().GetQueryable();
 
@@ -51,13 +65,21 @@ namespace kitap.Services
                 _ => query.OrderBy(b => b.Id)
             };
 
-            var books = await query
-                .Skip((pageNumber - 1) * pageSize)
-                .Take(pageSize)
-                .ToListAsync();
-
+            var books = await query.ToListAsync();
             var dtos = _mapper.Map<IEnumerable<BooksDto>>(books);
-            return new SuccessDataResult<IEnumerable<BooksDto>>(dtos, "Kitaplar başarıyla listelendi.");
+
+            // Filtresiz ana listeyi cache'e atalım (10 dakika süreli)
+            if (string.IsNullOrEmpty(searchTerm) && !categoryId.HasValue && !authorId.HasValue)
+            {
+                var cacheOptions = new MemoryCacheEntryOptions()
+                    .SetSlidingExpiration(TimeSpan.FromMinutes(10))
+                    .SetAbsoluteExpiration(TimeSpan.FromHours(1));
+                
+                _cache.Set(BooksCacheKey, dtos, cacheOptions);
+            }
+
+            var pagedData = dtos.Skip((pageNumber - 1) * pageSize).Take(pageSize);
+            return new SuccessDataResult<IEnumerable<BooksDto>>(pagedData, "Kitaplar başarıyla listelendi.");
         }
 
         public async Task<IDataResult<BooksDto>> GetByIdAsync(int id)
@@ -74,6 +96,8 @@ namespace kitap.Services
             var book = _mapper.Map<Book>(bookDto);
             await _uow.Repository<Book>().AddAsync(book);
             await _uow.SaveChangesAsync();
+            
+            _cache.Remove(BooksCacheKey); // Veri değiştiği için cache'i temizle
 
             var dto = _mapper.Map<BooksDto>(book);
             return new SuccessDataResult<BooksDto>(dto, "Kitap başarıyla eklendi.");
@@ -88,6 +112,8 @@ namespace kitap.Services
             _uow.Repository<Book>().Update(book);
             await _uow.SaveChangesAsync();
 
+            _cache.Remove(BooksCacheKey); // Cache invalidation
+
             return new SuccessResult("Kitap başarıyla güncellendi.");
         }
 
@@ -98,6 +124,8 @@ namespace kitap.Services
 
             _uow.Repository<Book>().Delete(book);
             await _uow.SaveChangesAsync();
+
+            _cache.Remove(BooksCacheKey); // Cache invalidation
 
             return new SuccessResult("Kitap başarıyla silindi.");
         }

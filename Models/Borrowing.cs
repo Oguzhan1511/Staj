@@ -11,6 +11,7 @@ namespace kitap.Models
         public DateTime ReturnDate { get; set; } 
         public DateTime? ActualReturnDate { get; set; } 
         public bool IsReturned { get; set; } = false;
+        public decimal FineAmount { get; set; } = 0;
 
         public Book Book { get; set; } = null!;
         public User User { get; set; } = null!;

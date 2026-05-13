@@ -33,6 +33,7 @@ builder.Services.AddScoped<kitap.Services.IReviewService, kitap.Services.ReviewS
 builder.Services.AddScoped<kitap.Core.UnitOfWork.IUnitOfWork, kitap.Core.UnitOfWork.UnitOfWork>();
 
 builder.Services.AddAutoMapper(typeof(kitap.Mapping.MappingProfile));
+builder.Services.AddMemoryCache();
 
 builder.Services.AddHangfire(config => config
     .SetDataCompatibilityLevel(CompatibilityLevel.Version_180)

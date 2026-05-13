@@ -1,8 +1,10 @@
 using AutoMapper;
-using kitap.Data;
+using kitap.Core.Results;
+using kitap.Core.UnitOfWork;
 using kitap.Dtos;
 using kitap.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,79 +14,93 @@ namespace kitap.Services
 {
     public class BorrowingService : IBorrowingService
     {
-        private readonly AppDbContext _context;
+        private readonly IUnitOfWork _uow;
         private readonly IMapper _mapper;
         private readonly ILogger<BorrowingService> _logger;
 
-        public BorrowingService(AppDbContext context, IMapper mapper, ILogger<BorrowingService> logger)
+        public BorrowingService(IUnitOfWork uow, IMapper mapper, ILogger<BorrowingService> logger)
         {
-            _context = context;
+            _uow = uow;
             _mapper = mapper;
             _logger = logger;
         }
 
-        public async Task<IEnumerable<BorrowingDto>> GetActiveBorrowingsAsync()
+        public async Task<IDataResult<IEnumerable<BorrowingDto>>> GetActiveBorrowingsAsync()
         {
-            var borrowings = await _context.Borrowings
+            var borrowings = await _uow.Repository<Borrowing>().GetQueryable()
                 .Include(b => b.Book)
                 .Include(b => b.User)
                 .Where(b => !b.IsReturned)
                 .ToListAsync();
 
-            return _mapper.Map<IEnumerable<BorrowingDto>>(borrowings);
+            var dtos = _mapper.Map<IEnumerable<BorrowingDto>>(borrowings);
+            return new SuccessDataResult<IEnumerable<BorrowingDto>>(dtos);
         }
 
-        public async Task<BorrowingDto> BorrowBookAsync(BorrowCreateDto borrowDto)
+        public async Task<IDataResult<BorrowingDto>> BorrowBookAsync(BorrowCreateDto borrowDto)
         {
-            // Kitap şu an başkasında mı kontrol et
-            var isAlreadyBorrowed = await _context.Borrowings
+            var isAlreadyBorrowed = await _uow.Repository<Borrowing>().GetQueryable()
                 .AnyAsync(b => b.BookId == borrowDto.BookId && !b.IsReturned);
 
             if (isAlreadyBorrowed)
             {
-                throw new Exception("Bu kitap şu an ödünç verilmiş durumda.");
+                return new ErrorDataResult<BorrowingDto>("Bu kitap şu an ödünç verilmiş durumda.");
             }
 
             var borrowing = _mapper.Map<Borrowing>(borrowDto);
             borrowing.BorrowDate = DateTime.UtcNow;
             borrowing.IsReturned = false;
 
-            _context.Borrowings.Add(borrowing);
-            await _context.SaveChangesAsync();
+            await _uow.Repository<Borrowing>().AddAsync(borrowing);
+            await _uow.SaveChangesAsync();
 
-            _logger.LogInformation("Kitap ödünç verildi. KitapId: {BookId}, KullanıcıId: {UserId}", borrowDto.BookId, borrowDto.UserId);
-
-            // Navigasyon property'lerini doldurmak için tekrar çekiyoruz
-            var result = await _context.Borrowings
+            var result = await _uow.Repository<Borrowing>().GetQueryable()
                 .Include(b => b.Book)
                 .Include(b => b.User)
                 .FirstAsync(b => b.Id == borrowing.Id);
 
-            return _mapper.Map<BorrowingDto>(result);
+            var dto = _mapper.Map<BorrowingDto>(result);
+            return new SuccessDataResult<BorrowingDto>(dto, "Kitap başarıyla ödünç verildi.");
         }
 
-        public async Task<bool> ReturnBookAsync(int borrowingId)
+        public async Task<IResult> ReturnBookAsync(int borrowingId)
         {
-            var borrowing = await _context.Borrowings.FindAsync(borrowingId);
-            if (borrowing == null || borrowing.IsReturned) return false;
+            var borrowing = await _uow.Repository<Borrowing>().GetByIdAsync(borrowingId);
+            if (borrowing == null || borrowing.IsReturned) return new ErrorResult("Geçersiz ödünç kaydı.");
 
             borrowing.IsReturned = true;
             borrowing.ActualReturnDate = DateTime.UtcNow;
 
-            await _context.SaveChangesAsync();
-            _logger.LogInformation("Kitap iade edildi. ÖdünçId: {BorrowingId}", borrowingId);
-            return true;
+            // Ceza Hesaplama Mantığı
+            if (borrowing.ActualReturnDate > borrowing.ReturnDate)
+            {
+                var lateDays = (borrowing.ActualReturnDate.Value - borrowing.ReturnDate).Days;
+                if (lateDays > 0)
+                {
+                    borrowing.FineAmount = lateDays * 5; // Günlük 5 TL
+                }
+            }
+
+            _uow.Repository<Borrowing>().Update(borrowing);
+            await _uow.SaveChangesAsync();
+
+            string message = borrowing.FineAmount > 0 
+                ? $"Kitap iade edildi. Gecikme cezası: {borrowing.FineAmount} TL" 
+                : "Kitap başarıyla iade edildi.";
+
+            return new SuccessResult(message);
         }
 
-        public async Task<IEnumerable<BorrowingDto>> GetUserHistoryAsync(int userId)
+        public async Task<IDataResult<IEnumerable<BorrowingDto>>> GetUserHistoryAsync(int userId)
         {
-            var history = await _context.Borrowings
+            var history = await _uow.Repository<Borrowing>().GetQueryable()
                 .Include(b => b.Book)
                 .Where(b => b.UserId == userId)
                 .OrderByDescending(b => b.BorrowDate)
                 .ToListAsync();
 
-            return _mapper.Map<IEnumerable<BorrowingDto>>(history);
+            var dtos = _mapper.Map<IEnumerable<BorrowingDto>>(history);
+            return new SuccessDataResult<IEnumerable<BorrowingDto>>(dtos);
         }
     }
 }

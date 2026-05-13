@@ -20,39 +20,31 @@ namespace kitap.Controllers
         }
 
         [HttpGet("active")]
-        public async Task<ActionResult<IEnumerable<BorrowingDto>>> GetActiveBorrowings()
+        public async Task<IActionResult> GetActiveBorrowings()
         {
-            var borrowings = await _borrowingService.GetActiveBorrowingsAsync();
-            return Ok(borrowings);
+            var result = await _borrowingService.GetActiveBorrowingsAsync();
+            return Ok(result);
         }
 
         [HttpPost("borrow")]
-        public async Task<ActionResult<BorrowingDto>> BorrowBook(BorrowCreateDto borrowDto)
+        public async Task<IActionResult> BorrowBook(BorrowCreateDto borrowDto)
         {
-            try
-            {
-                var result = await _borrowingService.BorrowBookAsync(borrowDto);
-                return Ok(result);
-            }
-            catch (System.Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            var result = await _borrowingService.BorrowBookAsync(borrowDto);
+            return result.Success ? Ok(result) : BadRequest(result);
         }
 
         [HttpPost("return/{id}")]
         public async Task<IActionResult> ReturnBook(int id)
         {
             var result = await _borrowingService.ReturnBookAsync(id);
-            if (!result) return NotFound("Ödünç kaydı bulunamadı veya kitap zaten iade edilmiş.");
-            return Ok("Kitap başarıyla iade edildi.");
+            return result.Success ? Ok(result) : BadRequest(result);
         }
 
         [HttpGet("user/{userId}/history")]
-        public async Task<ActionResult<IEnumerable<BorrowingDto>>> GetUserHistory(int userId)
+        public async Task<IActionResult> GetUserHistory(int userId)
         {
-            var history = await _borrowingService.GetUserHistoryAsync(userId);
-            return Ok(history);
+            var result = await _borrowingService.GetUserHistoryAsync(userId);
+            return Ok(result);
         }
     }
 }
