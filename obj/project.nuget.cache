@@ -1,10 +1,21 @@
 {
   "version": 2,
-  "dgSpecHash": "CoXzLGCNQ24=",
+  "dgSpecHash": "PPBFurnZN0A=",
   "success": true,
   "projectFilePath": "/Users/oguzhanozdemir/Desktop/kitap/kitap.csproj",
   "expectedPackageFiles": [
+    "/Users/oguzhanozdemir/.nuget/packages/automapper/16.1.1/automapper.16.1.1.nupkg.sha512",
+    "/Users/oguzhanozdemir/.nuget/packages/automapper.extensions.microsoft.dependencyinjection/12.0.1/automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
     "/Users/oguzhanozdemir/.nuget/packages/bcrypt.net-next/4.1.0/bcrypt.net-next.4.1.0.nupkg.sha512",
+    "/Users/oguzhanozdemir/.nuget/packages/dapper/2.0.123/dapper.2.0.123.nupkg.sha512",
+    "/Users/oguzhanozdemir/.nuget/packages/dapper.aot/1.0.48/dapper.aot.1.0.48.nupkg.sha512",
+    "/Users/oguzhanozdemir/.nuget/packages/fluentvalidation/11.11.0/fluentvalidation.11.11.0.nupkg.sha512",
+    "/Users/oguzhanozdemir/.nuget/packages/fluentvalidation.aspnetcore/11.3.1/fluentvalidation.aspnetcore.11.3.1.nupkg.sha512",
+    "/Users/oguzhanozdemir/.nuget/packages/fluentvalidation.dependencyinjectionextensions/11.11.0/fluentvalidation.dependencyinjectionextensions.11.11.0.nupkg.sha512",
+    "/Users/oguzhanozdemir/.nuget/packages/hangfire.aspnetcore/1.8.23/hangfire.aspnetcore.1.8.23.nupkg.sha512",
+    "/Users/oguzhanozdemir/.nuget/packages/hangfire.core/1.8.23/hangfire.core.1.8.23.nupkg.sha512",
+    "/Users/oguzhanozdemir/.nuget/packages/hangfire.netcore/1.8.23/hangfire.netcore.1.8.23.nupkg.sha512",
+    "/Users/oguzhanozdemir/.nuget/packages/hangfire.postgresql/1.21.1/hangfire.postgresql.1.21.1.nupkg.sha512",
     "/Users/oguzhanozdemir/.nuget/packages/humanizer/2.14.1/humanizer.2.14.1.nupkg.sha512",
     "/Users/oguzhanozdemir/.nuget/packages/humanizer.core/2.14.1/humanizer.core.2.14.1.nupkg.sha512",
     "/Users/oguzhanozdemir/.nuget/packages/humanizer.core.af/2.14.1/humanizer.core.af.2.14.1.nupkg.sha512",
@@ -82,12 +93,12 @@
     "/Users/oguzhanozdemir/.nuget/packages/microsoft.entityframeworkcore.sqlite/10.0.3/microsoft.entityframeworkcore.sqlite.10.0.3.nupkg.sha512",
     "/Users/oguzhanozdemir/.nuget/packages/microsoft.entityframeworkcore.sqlite.core/10.0.3/microsoft.entityframeworkcore.sqlite.core.10.0.3.nupkg.sha512",
     "/Users/oguzhanozdemir/.nuget/packages/microsoft.extensions.dependencymodel/10.0.3/microsoft.extensions.dependencymodel.10.0.3.nupkg.sha512",
-    "/Users/oguzhanozdemir/.nuget/packages/microsoft.identitymodel.abstractions/8.0.1/microsoft.identitymodel.abstractions.8.0.1.nupkg.sha512",
-    "/Users/oguzhanozdemir/.nuget/packages/microsoft.identitymodel.jsonwebtokens/8.0.1/microsoft.identitymodel.jsonwebtokens.8.0.1.nupkg.sha512",
-    "/Users/oguzhanozdemir/.nuget/packages/microsoft.identitymodel.logging/8.0.1/microsoft.identitymodel.logging.8.0.1.nupkg.sha512",
+    "/Users/oguzhanozdemir/.nuget/packages/microsoft.identitymodel.abstractions/8.14.0/microsoft.identitymodel.abstractions.8.14.0.nupkg.sha512",
+    "/Users/oguzhanozdemir/.nuget/packages/microsoft.identitymodel.jsonwebtokens/8.14.0/microsoft.identitymodel.jsonwebtokens.8.14.0.nupkg.sha512",
+    "/Users/oguzhanozdemir/.nuget/packages/microsoft.identitymodel.logging/8.14.0/microsoft.identitymodel.logging.8.14.0.nupkg.sha512",
     "/Users/oguzhanozdemir/.nuget/packages/microsoft.identitymodel.protocols/8.0.1/microsoft.identitymodel.protocols.8.0.1.nupkg.sha512",
     "/Users/oguzhanozdemir/.nuget/packages/microsoft.identitymodel.protocols.openidconnect/8.0.1/microsoft.identitymodel.protocols.openidconnect.8.0.1.nupkg.sha512",
-    "/Users/oguzhanozdemir/.nuget/packages/microsoft.identitymodel.tokens/8.0.1/microsoft.identitymodel.tokens.8.0.1.nupkg.sha512",
+    "/Users/oguzhanozdemir/.nuget/packages/microsoft.identitymodel.tokens/8.14.0/microsoft.identitymodel.tokens.8.14.0.nupkg.sha512",
     "/Users/oguzhanozdemir/.nuget/packages/microsoft.net.stringtools/17.11.48/microsoft.net.stringtools.17.11.48.nupkg.sha512",
     "/Users/oguzhanozdemir/.nuget/packages/microsoft.openapi/2.0.0/microsoft.openapi.2.0.0.nupkg.sha512",
     "/Users/oguzhanozdemir/.nuget/packages/microsoft.visualstudio.solutionpersistence/1.0.52/microsoft.visualstudio.solutionpersistence.1.0.52.nupkg.sha512",
@@ -111,6 +122,15 @@
     "/Users/oguzhanozdemir/.nuget/packages/nuget.projectmodel/6.12.1/nuget.projectmodel.6.12.1.nupkg.sha512",
     "/Users/oguzhanozdemir/.nuget/packages/nuget.protocol/6.12.1/nuget.protocol.6.12.1.nupkg.sha512",
     "/Users/oguzhanozdemir/.nuget/packages/nuget.versioning/6.12.1/nuget.versioning.6.12.1.nupkg.sha512",
+    "/Users/oguzhanozdemir/.nuget/packages/serilog/4.3.0/serilog.4.3.0.nupkg.sha512",
+    "/Users/oguzhanozdemir/.nuget/packages/serilog.aspnetcore/10.0.0/serilog.aspnetcore.10.0.0.nupkg.sha512",
+    "/Users/oguzhanozdemir/.nuget/packages/serilog.extensions.hosting/10.0.0/serilog.extensions.hosting.10.0.0.nupkg.sha512",
+    "/Users/oguzhanozdemir/.nuget/packages/serilog.extensions.logging/10.0.0/serilog.extensions.logging.10.0.0.nupkg.sha512",
+    "/Users/oguzhanozdemir/.nuget/packages/serilog.formatting.compact/3.0.0/serilog.formatting.compact.3.0.0.nupkg.sha512",
+    "/Users/oguzhanozdemir/.nuget/packages/serilog.settings.configuration/10.0.0/serilog.settings.configuration.10.0.0.nupkg.sha512",
+    "/Users/oguzhanozdemir/.nuget/packages/serilog.sinks.console/6.1.1/serilog.sinks.console.6.1.1.nupkg.sha512",
+    "/Users/oguzhanozdemir/.nuget/packages/serilog.sinks.debug/3.0.0/serilog.sinks.debug.3.0.0.nupkg.sha512",
+    "/Users/oguzhanozdemir/.nuget/packages/serilog.sinks.file/7.0.0/serilog.sinks.file.7.0.0.nupkg.sha512",
     "/Users/oguzhanozdemir/.nuget/packages/sqlitepclraw.bundle_e_sqlite3/2.1.11/sqlitepclraw.bundle_e_sqlite3.2.1.11.nupkg.sha512",
     "/Users/oguzhanozdemir/.nuget/packages/sqlitepclraw.core/2.1.11/sqlitepclraw.core.2.1.11.nupkg.sha512",
     "/Users/oguzhanozdemir/.nuget/packages/sqlitepclraw.lib.e_sqlite3/2.1.11/sqlitepclraw.lib.e_sqlite3.2.1.11.nupkg.sha512",
@@ -129,5 +149,42 @@
     "/Users/oguzhanozdemir/.nuget/packages/system.security.cryptography.pkcs/6.0.4/system.security.cryptography.pkcs.6.0.4.nupkg.sha512",
     "/Users/oguzhanozdemir/.nuget/packages/system.security.cryptography.protecteddata/9.0.6/system.security.cryptography.protecteddata.9.0.6.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1608",
+      "level": "Warning",
+      "message": "Bağımlılık kısıtlaması dışında algılanan paket sürümü: AutoMapper.Extensions.Microsoft.DependencyInjection 12.0.1, AutoMapper (= 12.0.1) gerektiriyor ancak sürüm AutoMapper 16.1.1 çözümlenmiş.",
+      "projectPath": "/Users/oguzhanozdemir/Desktop/kitap/kitap.csproj",
+      "warningLevel": 1,
+      "filePath": "/Users/oguzhanozdemir/Desktop/kitap/kitap.csproj",
+      "libraryId": "AutoMapper",
+      "targetGraphs": [
+        "net10.0"
+      ]
+    },
+    {
+      "code": "NU1901",
+      "level": "Warning",
+      "message": "'NuGet.Packaging' 6.12.1 paketinde önem derecesi düşük olan bilinen bir https://github.com/advisories/GHSA-g4vj-cjjj-v7hg güvenlik açığı var",
+      "projectPath": "/Users/oguzhanozdemir/Desktop/kitap/kitap.csproj",
+      "warningLevel": 1,
+      "filePath": "/Users/oguzhanozdemir/Desktop/kitap/kitap.csproj",
+      "libraryId": "NuGet.Packaging",
+      "targetGraphs": [
+        "net10.0"
+      ]
+    },
+    {
+      "code": "NU1901",
+      "level": "Warning",
+      "message": "'NuGet.Protocol' 6.12.1 paketinde önem derecesi düşük olan bilinen bir https://github.com/advisories/GHSA-g4vj-cjjj-v7hg güvenlik açığı var",
+      "projectPath": "/Users/oguzhanozdemir/Desktop/kitap/kitap.csproj",
+      "warningLevel": 1,
+      "filePath": "/Users/oguzhanozdemir/Desktop/kitap/kitap.csproj",
+      "libraryId": "NuGet.Protocol",
+      "targetGraphs": [
+        "net10.0"
+      ]
+    }
+  ]
 }
